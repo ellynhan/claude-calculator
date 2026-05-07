@@ -1,0 +1,249 @@
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a2e;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Calculator Shell ────────────────────────────────────── */
+.calculator {
+  width: min(360px, 100vw - 16px);
+  min-width: 320px;
+  background: #16213e;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Display ─────────────────────────────────────────────── */
+.display {
+  background: #0f3460;
+  border-radius: 12px;
+  padding: 16px 20px 12px;
+  margin-bottom: 16px;
+  min-height: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.display-expression {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.85rem;
+  min-height: 1.2em;
+  text-align: right;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-current {
+  color: #e2e8f0;
+  font-size: 2.4rem;
+  font-weight: 300;
+  line-height: 1.2;
+  text-align: right;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: font-size 0.1s ease;
+}
+
+.display-current.long-text {
+  font-size: 1.6rem;
+}
+
+.display-current.error-text {
+  color: #fc8181;
+  font-size: 1.8rem;
+}
+
+/* ── Button Grid (4-column CSS Grid) ────────────────────── */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* ── Base Button ─────────────────────────────────────────── */
+.btn {
+  height: 64px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.08s ease,
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.7);
+}
+
+/* Visual feedback when triggered by keyboard */
+.btn.key-pressed {
+  transform: scale(0.94);
+  filter: brightness(1.2);
+}
+
+/* ── Number Buttons ──────────────────────────────────────── */
+.btn-number {
+  background: #1e3a5f;
+  color: #e2e8f0;
+}
+
+.btn-number:hover:not(:disabled) {
+  background: #254d7a;
+}
+
+.btn-number:active:not(:disabled) {
+  background: #2d5f94;
+}
+
+/* ── 0 Button (spans 2 columns) ──────────────────────────── */
+.btn-zero {
+  grid-column: span 2;
+}
+
+/* ── Operator Buttons ────────────────────────────────────── */
+.btn-operator {
+  background: #2d4a7a;
+  color: #90cdf4;
+  font-weight: 600;
+}
+
+.btn-operator:hover:not(:disabled) {
+  background: #3a5d96;
+}
+
+.btn-operator:active:not(:disabled) {
+  background: #4a73b8;
+}
+
+.btn-operator.active-operator {
+  background: #4a73b8;
+  color: #bee3f8;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Utility Buttons (C, Backspace) ──────────────────────── */
+.btn-utility {
+  background: #3d2b5e;
+  color: #e9d8fd;
+  font-weight: 600;
+}
+
+.btn-utility:hover:not(:disabled) {
+  background: #4f3676;
+}
+
+.btn-utility:active:not(:disabled) {
+  background: #60428e;
+}
+
+/* ── Equals Button ───────────────────────────────────────── */
+.btn-equals {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.btn-equals:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7c93f0 0%, #8a5db8 100%);
+}
+
+.btn-equals:active:not(:disabled) {
+  background: linear-gradient(135deg, #5a70d8 0%, #6a3f90 100%);
+}
+
+/* ── Empty / Disabled Placeholder Button ─────────────────── */
+.btn-empty {
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Generic disabled appearance (covers btn-empty too) */
+.btn:disabled {
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Responsive: 320px – 360px ───────────────────────────── */
+@media (max-width: 360px) {
+  .calculator {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .buttons {
+    gap: 7px;
+  }
+
+  .btn {
+    height: 56px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+  }
+
+  .display-current {
+    font-size: 2rem;
+  }
+}
+
+/* ── Responsive: exactly 320px (minimum supported width) ──── */
+@media (max-width: 320px) {
+  .calculator {
+    padding: 10px;
+    min-width: 0;
+    width: 100vw;
+    border-radius: 0;
+  }
+
+  .buttons {
+    gap: 5px;
+  }
+
+  .btn {
+    height: 50px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  .display {
+    min-height: 72px;
+    padding: 12px 14px 10px;
+  }
+
+  .display-current {
+    font-size: 1.7rem;
+  }
+}

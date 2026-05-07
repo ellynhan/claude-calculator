@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="calculator" id="calculator" role="application" aria-label="계산기">
+
+    <!-- Display -->
+    <div class="display" aria-live="polite" aria-atomic="true">
+      <div class="display-expression" id="expression"></div>
+      <div class="display-current" id="display">0</div>
+    </div>
+
+    <!-- Button Grid (4 columns) -->
+    <div class="buttons" role="group" aria-label="계산기 버튼">
+
+      <!-- Row 1: C | ⌫ | (empty/disabled) | ÷ -->
+      <button
+        class="btn btn-utility"
+        aria-label="전체 초기화"
+        onclick="clearAll()"
+      >C</button>
+
+      <button
+        class="btn btn-utility"
+        aria-label="마지막 문자 삭제"
+        onclick="backspace()"
+      >&#9003;</button>
+
+      <!-- 3rd slot: disabled empty button (layout placeholder) -->
+      <button
+        class="btn btn-empty"
+        disabled
+        aria-hidden="true"
+        tabindex="-1"
+      ></button>
+
+      <button
+        class="btn btn-operator"
+        aria-label="나누기"
+        onclick="setOperator('/')"
+      >&#247;</button>
+
+      <!-- Row 2: 7 | 8 | 9 | × -->
+      <button class="btn btn-number" aria-label="7" onclick="appendNumber('7')">7</button>
+      <button class="btn btn-number" aria-label="8" onclick="appendNumber('8')">8</button>
+      <button class="btn btn-number" aria-label="9" onclick="appendNumber('9')">9</button>
+      <button
+        class="btn btn-operator"
+        aria-label="곱하기"
+        onclick="setOperator('*')"
+      >&#215;</button>
+
+      <!-- Row 3: 4 | 5 | 6 | - -->
+      <button class="btn btn-number" aria-label="4" onclick="appendNumber('4')">4</button>
+      <button class="btn btn-number" aria-label="5" onclick="appendNumber('5')">5</button>
+      <button class="btn btn-number" aria-label="6" onclick="appendNumber('6')">6</button>
+      <button
+        class="btn btn-operator"
+        aria-label="빼기"
+        onclick="setOperator('-')"
+      >-</button>
+
+      <!-- Row 4: 1 | 2 | 3 | + -->
+      <button class="btn btn-number" aria-label="1" onclick="appendNumber('1')">1</button>
+      <button class="btn btn-number" aria-label="2" onclick="appendNumber('2')">2</button>
+      <button class="btn btn-number" aria-label="3" onclick="appendNumber('3')">3</button>
+      <button
+        class="btn btn-operator"
+        aria-label="더하기"
+        onclick="setOperator('+')"
+      >+</button>
+
+      <!-- Row 5: 0 (span 2) | . | = -->
+      <button
+        class="btn btn-number btn-zero"
+        aria-label="0"
+        onclick="appendNumber('0')"
+      >0</button>
+      <button
+        class="btn btn-number"
+        aria-label="소수점"
+        onclick="appendNumber('.')"
+      >.</button>
+      <button
+        class="btn btn-equals"
+        aria-label="등호"
+        onclick="calculate()"
+      >=</button>
+
+    </div>
+  </div>
+
+  <script src="calculator.js"></script>
+</body>
+</html>
